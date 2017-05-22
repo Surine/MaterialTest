@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">软妹壁</string>
+    <string name="about">关于</string>
+    <string name="about_message">当然是选择原谅他咯。</string>
+    <string name="about_ok">嗯！</string>
+    <string name="without_market">您的手机上没有安装Android应用市场</string>
+    <string name="set_paper">下载并设为壁纸</string>
+    <string name="start_loading">开始加载壁纸……</string>
+    <string name="success">壁纸下载成功</string>
+    <string name="fail">壁纸下载失败</string>
+    <string name="set_success">壁纸设置成功</string>
+    <string name="set_fail">壁纸设置失败</string>
+    <string name="save_success">储存成功</string>
+
+</resources>
