@@ -6,12 +6,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,9 +28,14 @@ import android.widget.Toast;
 import com.example.materialtest.Adapter.PictureAdapter;
 import com.example.materialtest.Bean.Picture;
 import com.example.materialtest.Data.Urldate;
+import com.example.materialtest.EventBus.SimpleEventBus;
 import com.example.materialtest.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -56,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        EventBus.getDefault().register(this);
 
-
-       //init the picture and we need a parameter named page
+        //init the picture and we need a parameter named page
         initPicture(page);
     }
 
@@ -79,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                    //Resolve the json
                    parseJson(respondata);
                } catch (IOException e) {
+                   Snackbar.make(swipeRefresh, "加载出错，网络问题？", Snackbar.LENGTH_SHORT).show();
                    e.printStackTrace();
                }
            }
@@ -112,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new PictureAdapter(mPictureList,this);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -156,6 +163,8 @@ public class MainActivity extends AppCompatActivity {
                         initPicture(++page);
                         adapter.notifyDataSetChanged();
                         swipeRefresh.setRefreshing(false);
+                        EventBus.getDefault().post(
+                                new SimpleEventBus(2,"end"));
                     }
                 });
             }
@@ -193,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.show();
                 break;
             case R.id.github:
-                Uri uri = Uri.parse("https://github.com/Surine/TodayTodo");
+                Uri uri = Uri.parse("http://github.com/surine/MaterialTest");
                 Intent it = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(it);
                 break;
@@ -202,6 +211,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(SimpleEventBus event) {
+        if (event.getId() == 1) {
+            Snackbar.make(swipeRefresh, R.string.reing, Snackbar.LENGTH_SHORT).show();
+            refreshFruits();
+        }
+    }
 }
-
-

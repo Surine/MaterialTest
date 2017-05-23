@@ -1,6 +1,8 @@
 package com.example.materialtest.Bean;
 
-public class Picture {
+import java.io.Serializable;
+
+public class Picture implements Serializable{
 
     private String _id;
     private String createdAt;

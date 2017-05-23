@@ -5,23 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000"
     tools:context="com.example.materialtest.UI.PictureActivity">
 
-    <com.bm.library.PhotoView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+
+    <ImageView
         android:id="@+id/picture_big"
         android:scaleType="centerCrop"
         android:transitionName="transitionImg"
-         />
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar2"
         android:layout_width="match_parent"
-        android:layout_height="76dp"
-        android:paddingTop="16dp"
-        android:background="#00000000"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:layout_height="match_parent"
         />
+
 </RelativeLayout>

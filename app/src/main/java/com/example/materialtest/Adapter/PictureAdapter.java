@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.materialtest.Bean.Picture;
 import com.example.materialtest.R;
-import com.example.materialtest.UI.PictureActivity;
+import com.example.materialtest.UI.PictureVp_Activity;
 
 import java.util.List;
 
@@ -60,9 +60,7 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
                 Picture fruit = mFruitList.get(position);
 
                 //set intent
-                Intent intent = new Intent(mContext, PictureActivity.class);
-                intent.putExtra("name", fruit.getDesc());
-                intent.putExtra("url", fruit.getUrl());
+                Intent intent = PictureVp_Activity.newIntent(mContext,fruit.getUrl(),fruit.getDesc(),mFruitList);
 
                 //Shared elements of animation
                 if (android.os.Build.VERSION.SDK_INT > 21) {

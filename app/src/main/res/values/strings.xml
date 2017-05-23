@@ -11,5 +11,9 @@
     <string name="set_success">壁纸设置成功</string>
     <string name="set_fail">壁纸设置失败</string>
     <string name="save_success">储存成功</string>
+    <string name="no_permi">骚年，你是不是没给储存权限啊</string>
+    <string name="url">图片储存路径：</string>
+    <string name="re_success">加载成功</string>
+    <string name="reing">加载上一页……</string>
 
 </resources>
